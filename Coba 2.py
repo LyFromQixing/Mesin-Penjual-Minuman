@@ -21,22 +21,22 @@ Awal = """
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 """
 print(Awal)
-A1 = ["*  Kode: A1 ||", "Frestea         ", 3500]
-A2 = ["*  Kode: A2 ||", "Teh Botol Sosro ", 3500]
-A3 = ["*  Kode: A3 ||", "Teh Gelas Botol ", 3000]
-B1 = ["*  Kode: B1 ||", "Good Day        ", 7000]
-B2 = ["*  Kode: B2 ||", "Kopiko 78       ", 7000]
-B3 = ["*  Kode: B3 ||", "Golda Coffee    ", 7000]
-C1 = ["*  Kode: C1 ||", "Sprite          ", 4000]
-C2 = ["*  Kode: C2 ||", "Coca Cola       ", 4000]
-C3 = ["*  Kode: C3 ||", "Fanta           ", 4000]
+A1 = {"no": "A1", "item": "Frestea        ", "harga": 3500}
+A2 = {"no": "A2", "item": "Teh Botol Sosro", "harga": 3500}
+A3 = {"no": "A3", "item": "Teh Gelas Botol", "harga": 3000}
+B1 = {"no": "B1", "item": "Good Day       ", "harga": 7000}
+B2 = {"no": "B2", "item": "Kopiko 78      ", "harga": 7000}
+B3 = {"no": "B3", "item": "Golda Coffee   ", "harga": 7000}
+C1 = {"no": "C1", "item": "Sprite         ", "harga": 4000}
+C2 = {"no": "C2", "item": "Coca Cola      ", "harga": 4000}
+C3 = {"no": "C3", "item": "Fanta          ", "harga": 4000}
 Z = '*  Kode: 0  || exit                                         *'
 items = [A1, A2, A3 ,B1, B2, B3, C1, C2, C3]
 
 def vending(a):
     trials = 3
     while trials != 0:
-        Pin = int(input("Pin Anda: "))
+        Pin = int(input("Pin Anda         : "))
         print()
         #Kalau salah
         if Pin != a[0]:
@@ -45,17 +45,16 @@ def vending(a):
         #Kalau benar
         else:
             while a[1] >= 0:
-                print("* " * 31)
-                print('*', ' ' * 25, '|MENU|', ' ' * 24, '*')
-                print(A1[0], 'Barang:', A1[1], '||', 'Harga: Rp.', A1[2], ' *')
-                print(A2[0], 'Barang:', A2[1], '||', 'Harga: Rp.', A2[2], ' *')
-                print(A3[0], 'Barang:', A3[1], '||', 'Harga: Rp.', A3[2], ' *')
-                print(B1[0], 'Barang:', B1[1], '||', 'Harga: Rp.', B1[2], ' *')
-                print(B2[0], 'Barang:', B2[1], '||', 'Harga: Rp.', B2[2], ' *')
-                print(B3[0], 'Barang:', B3[1], '||', 'Harga: Rp.', B3[2], ' *')
-                print(C1[0], 'Barang:', C1[1], '||', 'Harga: Rp.', C1[2], ' *')
-                print(C2[0], 'Barang:', C2[1], '||', 'Harga: Rp.', C2[2], ' *')
-                print(C3[0], 'Barang:', C3[1], '||', 'Harga: Rp.', C3[2], ' *')
+                # Buat fungsi untuk menunjukkan pilihan items ke pelanggan
+                def menunjukkan(items):
+                    print("* " * 31)
+                    print('*', ' ' * 25, '|MENU|', ' ' * 24, '*')
+                    for item in items:
+                        # .get berfungsi untuk mengambil item yang terdapat pada list
+                        print("* ", "Kode:", item.get("no"), "||", "Barang:", item.get("item"), "||", "Harga:", "Rp.",
+                            item.get("harga"), "  *")
+                # Kita panggil lagi fungsi yang sudah dibuat supaya bekerja
+                menunjukkan(items)
                 print(Z)
                 print("* " * 31)
                 print()
@@ -63,7 +62,7 @@ def vending(a):
                 Barang = input("Silakan masukkan kode minuman yang ingin dibeli = ")
                 if Barang == 'A1':
                     #Kalau uangnya ga cukup
-                    if a[1] < A1[2]:
+                    if a[1] < A1["harga"]:
                         print()
                         print("Uang anda tidak cukup")
                         option = input('Lanjutkan transaksi? (Y/N): ')
@@ -76,9 +75,9 @@ def vending(a):
                     #Kalau uangnya cukup
                     else:
                         print()
-                        print("Transaksi Anda Berhasil! Anda telah membeli", A1[1])
+                        print("Transaksi Anda Berhasil! Anda telah membeli", A1["item"])
                         print()
-                        a[1] -= A1[2]
+                        a[1] -= A1["harga"]
                         option = input('Lanjutkan transaksi? (Y/N): ')
                         if option == 'Y':
                             print()
@@ -87,7 +86,7 @@ def vending(a):
                             print('Terima kasih telah mengunjungi Mesin Penjual Minuman kami, Have a Nice Day!')
                             break
                 elif Barang == 'A2':
-                    if a[1] < A2[2]:
+                    if a[1] < A2['harga']:
                         print()
                         print("Uang anda tidak cukup")
                         option = input('Lanjutkan transaksi? (Y/N): ')
@@ -99,9 +98,9 @@ def vending(a):
                             break
                     else:
                         print()
-                        print("Transaksi Anda Berhasil! Anda telah membeli", A2[1])
+                        print("Transaksi Anda Berhasil! Anda telah membeli", A2['item'])
                         print()
-                        a[1] -= A2[2]
+                        a[1] -= A2['harga']
                         option = input('Lanjutkan transaksi? (Y/N): ')
                         if option == 'Y':
                                 print()
@@ -110,7 +109,7 @@ def vending(a):
                             print('Terima kasih telah mengunjungi Mesin Penjual Minuman kami, Have a Nice Day!')
                             break
                 elif Barang == 'A3':
-                    if a[1] < A3[2]:
+                    if a[1] < A3['harga']:
                         print()
                         print("Uang anda tidak cukup")
                         option = input('Lanjutkan transaksi? (Y/N): ')
@@ -122,9 +121,9 @@ def vending(a):
                             break
                     else:
                         print()
-                        print("Transaksi Anda Berhasil! Anda telah membeli", A3[1])
+                        print("Transaksi Anda Berhasil! Anda telah membeli", A3['item'])
                         print()
-                        a[1] -= A3[2]
+                        a[1] -= A3['harga']
                         option = input('Lanjutkan transaksi? (Y/N): ')
                         if option == 'Y':
                             print()
@@ -133,7 +132,7 @@ def vending(a):
                             print('Terima kasih telah mengunjungi Mesin Penjual Minuman kami, Have a Nice Day!')
                             break
                 elif Barang == 'B1':
-                    if a[1] < B1[2]:
+                    if a[1] < B1['harga']:
                         print()
                         print("Uang anda tidak cukup")
                         option = input('Lanjutkan transaksi? (Y/N): ')
@@ -145,9 +144,9 @@ def vending(a):
                             break
                     else:
                         print()
-                        print("Transaksi Anda Berhasil! Anda telah membeli", B1[1])
+                        print("Transaksi Anda Berhasil! Anda telah membeli", B1['item'])
                         print()
-                        a[1] -= B1[2]
+                        a[1] -= B1['harga']
                         option = input('Lanjutkan transaksi? (Y/N): ')
                         if option == 'Y':
                             print()
@@ -156,7 +155,7 @@ def vending(a):
                             print('Terima kasih telah mengunjungi Mesin Penjual Minuman kami, Have a Nice Day!')
                             break
                 elif Barang == 'B2':
-                    if a[1] < B2[2]:
+                    if a[1] < B2['harga']:
                         print()
                         print("Uang anda tidak cukup")
                         option = input('Lanjutkan transaksi? (Y/N): ')
@@ -168,9 +167,9 @@ def vending(a):
                             break
                     else:
                         print()
-                        print("Transaksi Anda Berhasil! Anda telah membeli", B2[1])
+                        print("Transaksi Anda Berhasil! Anda telah membeli", B2['item'])
                         print()
-                        a[1] -= B2[2]
+                        a[1] -= B2['harga']
                         option = input('Lanjutkan transaksi? (Y/N): ')
                         if option == 'Y':
                             print()
@@ -179,7 +178,7 @@ def vending(a):
                             print('Terima kasih telah mengunjungi Mesin Penjual Minuman kami, Have a Nice Day!')
                             break
                 elif Barang == 'B3':
-                    if a[1] < B3[2]:
+                    if a[1] < B3['harga']:
                         print()
                         print("Uang anda tidak cukup")
                         option = input('Lanjutkan transaksi? (Y/N): ')
@@ -191,9 +190,9 @@ def vending(a):
                             break
                     else:
                         print()
-                        print("Transaksi Anda Berhasil! Anda telah membeli", B3[1])
+                        print("Transaksi Anda Berhasil! Anda telah membeli", B3['item'])
                         print()
-                        a[1] -= B3[2]
+                        a[1] -= B3['harga']
                         option = input('Lanjutkan transaksi? (Y/N): ')
                         if option == 'Y':
                             print()
@@ -202,7 +201,7 @@ def vending(a):
                             print('Terima kasih telah mengunjungi Mesin Penjual Minuman kami, Have a Nice Day!')
                             break
                 elif Barang == 'C1':
-                    if a[1] < C1[2]:
+                    if a[1] < C1['harga']:
                         print()
                         print("Uang anda tidak cukup")
                         option = input('Lanjutkan transaksi? (Y/N): ')
@@ -214,9 +213,9 @@ def vending(a):
                             break
                     else:
                         print()
-                        print("Transaksi Anda Berhasil! Anda telah membeli", C1[1])
+                        print("Transaksi Anda Berhasil! Anda telah membeli", C1['item'])
                         print()
-                        a[1] -= C1[2]
+                        a[1] -= C1['harga']
                         option = input('Lanjutkan transaksi? (Y/N): ')
                         if option == 'Y':
                             print()
@@ -225,7 +224,7 @@ def vending(a):
                             print('Terima kasih telah mengunjungi Mesin Penjual Minuman kami, Have a Nice Day!')
                             break
                 elif Barang == 'C2':
-                    if a[1] < C2[2]:
+                    if a[1] < C2['harga']:
                         print()
                         print("Uang anda tidak cukup")
                         option = input('Lanjutkan transaksi? (Y/N): ')
@@ -237,9 +236,9 @@ def vending(a):
                             break
                     else:
                         print()
-                        print("Transaksi Anda Berhasil! Anda telah membeli", C2[1])
+                        print("Transaksi Anda Berhasil! Anda telah membeli", C2['item'])
                         print()
-                        a[1] -= C2[2]
+                        a[1] -= C2['harga']
                         option = input('Lanjutkan transaksi? (Y/N): ')
                         if option == 'Y':
                             print()
@@ -248,7 +247,7 @@ def vending(a):
                             print('Terima kasih telah mengunjungi Mesin Penjual Minuman kami, Have a Nice Day!')
                             break
                 elif Barang == 'C3':
-                    if a[1] < C3[2]:
+                    if a[1] < C3['harga']:
                         print()
                         print("Uang anda tidak cukup")
                         option = input('Lanjutkan transaksi? (Y/N): ')
@@ -260,9 +259,9 @@ def vending(a):
                             break
                     else:
                         print()
-                        print("Transaksi Anda Berhasil! Anda telah membeli", C3[1])
+                        print("Transaksi Anda Berhasil! Anda telah membeli", C3['item'])
                         print()
-                        a[1] -= C3[2]
+                        a[1] -= C3['harga']
                         option = input('Lanjutkan transaksi? (Y/N): ')
                         if option == 'Y':
                             print()
